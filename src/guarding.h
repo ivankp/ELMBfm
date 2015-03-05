@@ -1,0 +1,45 @@
+/* ------------------------------------------------------------------------
+File   : guarding.h
+
+Descr  : Definitions and declarations for CANopen Nodeguarding, Lifeguarding
+         and Heartbeat functions.
+
+History: 23JUL.00; Henk B&B; Definition.
+--------------------------------------------------------------------------- */
+
+#ifndef GUARDING_H
+#define GUARDING_H
+
+//#define LIFETIME_FACTOR_DFLT 60 /* Life-guarding timeout of 60 s */
+#define LIFETIME_FACTOR_DFLT 0 /* No life-guarding */
+
+#define HEARTBEAT_TIME_DFLT  0
+
+/* ------------------------------------------------------------------------ */
+/* Globals */
+
+/* Keeps track of time for the Life Guarding time out */
+extern BYTE LifeGuardCntr;
+
+/* Keeps track of time for the Heartbeat generation */
+extern BYTE HeartBeatCntr;
+
+/* Toggle bit for the Node Guarding CAN-message */
+extern BYTE NodeGuardToggle;
+
+/* ------------------------------------------------------------------------ */
+/* Function prototypes */
+
+void guarding_init             ( void );
+void lifeguarding_and_heartbeat( BYTE nodestate );
+void nodeguarding              ( BYTE nodestate );
+BYTE guarding_get_guardtime    ( BYTE *guardtime );
+BYTE guarding_get_lifetime     ( BYTE *factor );
+BOOL guarding_set_lifetime     ( BYTE factor );
+BYTE guarding_get_heartbeattime( BYTE *hbtime );
+BOOL guarding_set_heartbeattime( BYTE *hbtime );
+BOOL guarding_store_config     ( void );
+
+#endif /* GUARDING_H */
+
+/* ------------------------------------------------------------------------ */
